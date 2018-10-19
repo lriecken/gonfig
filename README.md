@@ -1,6 +1,9 @@
 # gonfig
 
-gonfig is a lightweight Golang package for intergrating both JSON configs and enviornment variables into one config object.
+This is a fork of https://github.com/tkanos/gonfig adding YAML support. As JSON is also valid YAML it can be used as a drop in replacement.
+json struct tags can also still be used.
+
+gonfig is a lightweight Golang package for intergrating both JSON and YAML configs and enviornment variables into one config object.
 
 ## Usage
 
@@ -21,7 +24,13 @@ Then fill in our JSON file:
 }
 ```
 
-We do not define `Connection_String` in the JSON as we would prefer to define that through an enviornment variable.
+Alternatively we can use a YAML file:
+
+```
+Port: 8080
+```
+
+We do not define `Connection_String` in the JSON or YAML as we would prefer to define that through an enviornment variable.
 
 [Best practices of configuration file](https://medium.com/@tkanos/best-practices-for-configuration-file-in-your-code-2d6add3f4b86#.dze386j1t)
 
@@ -33,11 +42,11 @@ $ docker run [...] -e Connection_String="..." [...]
 To make this simple for developers we can use gonfig to easily fill in our struct.
 
 ```bash
-$ go get github.com/tkanos/gonfig
+$ go get github.com/lriecken/gonfig
 ```
 
 ```golang
-import "github.com/tkanos/gonfig"
+import "github.com/lriecken/gonfig"
 
 configuration := Configuration{}
 err := gonfig.GetConf("pathtomyjonfile.json", &configuration)
